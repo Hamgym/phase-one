@@ -1,0 +1,51 @@
+.menu ol {
+  display: none;
+}
+
+.menu img {
+  display: block;
+  width: 1.8rem;
+  margin: 0 0.6rem;
+}
+
+.menu .open {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10rem;
+  height: 100%;
+  background-color: white;
+  text-align: center;
+  box-shadow: -1px 0 4px 1px gray;
+  z-index: 1;
+}
+
+.menu #cross {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 0.2rem;
+}
+
+.menu li {
+  margin: 0.5rem 0;
+}
+
+
+header span {
+  font-size: 1.5rem;
+}
+
+
+main {
+  width: 90%;
+}
+
+.promotion div {
+  width: calc(100% - 20px);
+}
+
+.product div {
+  width: calc(100% - 20px);
+}

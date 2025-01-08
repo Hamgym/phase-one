@@ -1,0 +1,124 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+html {
+  /* base text size */
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+}
+
+.title p {
+  padding: 0.5rem 0.6rem;
+  font-weight: bold;
+}
+
+.menu {
+  position: relative;
+}
+
+.menu img {
+  display: none;
+}
+
+.menu ol {
+  display: flex;
+  list-style-type: none;
+}
+
+.menu li {
+  padding: 0.5rem 0.6rem;
+}
+
+
+header {
+  background-color: lightblue;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header span {
+  /* twice the base size */
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+main {
+  width: 1200px;
+  margin: 1.5rem auto;
+}
+
+.promotion {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.promotion div {
+  width: calc(100% / 3 - 20px);
+  height: 50px;
+  background-color: rgb(200, 220, 230);
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.promotion img {
+  width: 80px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promotion p {
+  margin-left: 0.5rem;
+}
+
+.product {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product div {
+  width: calc(100% / 6 - 20px);
+  height: 200px;
+  margin: 0.5rem;
+  background-image: url("../images/landscape.jpg");
+  background-size: cover;
+  background-position: bottom;
+  position: relative;
+}
+
+.product .star {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 0.5;
+}
+
+.product p {
+  width: 100%;
+  padding: 0.4rem;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+}
