@@ -1,0 +1,21 @@
+main {
+  width: 90%;
+}
+
+.promotion #pm1,
+.promotion #pm2 {
+  width: calc(100% / 2 - 20px);
+}
+
+.promotion #pm3 {
+  width: calc(100% - 20px);
+}
+
+.product div {
+  width: calc(100% / 4 - 20px);
+}
+
+.product #pd9,
+.product #pd10 {
+  width: calc(100% / 2 - 20px);
+}

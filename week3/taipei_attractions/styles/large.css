@@ -1,0 +1,4 @@
+.product #pd1,
+.product #pd6 {
+  width: calc(100% / 3 - 20px);
+}
