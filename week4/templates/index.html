@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet"
+        href="{{ url_for('static_files', path='/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">歡迎光臨，請輸入帳號密碼</div>
+        <div class="content">
+            <h2>登入系統</h2>
+            <form class="signin" action="/signin" method="post">
+                <div class="row">
+                    <label for="">帳號</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div class="row">
+                    <label for="">密碼</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <div class="row">
+                    <label for="agree">同意條款</label>
+                    <input type="checkbox" name="agree" id="agree">
+                </div>
+                <div class="row">
+                    <button>登入</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h2>計算正整數的平方</h2>
+            <form class="square" method="get">
+                <div class="row">
+                    <label for="">正整數</label>
+                    <input type="text" id="number">
+                </div>
+                <div class="row">
+                    <button>計算</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let signinBtn = document.querySelector(".signin button");
+        let agreeBox = document.querySelector("#agree");
+        signinBtn.addEventListener("click", agreed);
+        function agreed() {
+            signinBtn.setAttribute("type", "submit");
+            if (agreeBox.checked == false) {
+                alert("請勾選同意條款");
+                signinBtn.setAttribute("type", "button");
+            }
+        }
+
+        let inputNum = document.querySelector("#number");
+        let calBtn = document.querySelector(".square button");
+        calBtn.addEventListener("click", square);
+        function square() {
+            calBtn.setAttribute("type", "submit");
+            let num = Number(inputNum.value);
+            if (num > 0) {
+                calBtn.setAttribute("formaction", `/square/${num}`)
+            } else {
+                alert("請輸入正整數");
+                calBtn.setAttribute("type", "button");
+            }
+        }
+    </script>
+</body>
+
+</html>
