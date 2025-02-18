@@ -1,3 +1,14 @@
+# Don’t push code including your daily password
+import mysql.connector
+mydb = mysql.connector.connect(
+    user = "",
+    password = "",
+    host = "localhost",
+    database = "website"
+)
+cursor = mydb.cursor()
+
+
 from fastapi import FastAPI, Request, Form
 app = FastAPI()
 
@@ -10,18 +21,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static_files")
 from fastapi.templating import Jinja2Templates
 templates = Jinja2Templates(directory="templates")
 
-# Don’t push code including your daily password
-import mysql.connector
-mydb = mysql.connector.connect(
-    user = "",
-    password = "",
-    host = "localhost",
-    database = "website"
-)
-cursor = mydb.cursor()
-
-
 from fastapi.responses import HTMLResponse, RedirectResponse
+
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request:Request):
     return templates.TemplateResponse(
@@ -35,9 +37,7 @@ async def signup(request:Request, name:str=Form(), username:str=Form(), password
     if row != None:
         return RedirectResponse("/error?message=使用者名稱重複", status_code=303)
     else:
-        cursor.execute(
-            f"INSERT INTO member(name, username, password) VALUES('{name}', '{username}', '{password}')"
-        )
+        cursor.execute(f"INSERT INTO member(name, username, password) VALUES('{name}', '{username}', '{password}')")
         mydb.commit()
         return RedirectResponse("/", status_code=303)
 
