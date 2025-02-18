@@ -8,7 +8,6 @@ mydb = mysql.connector.connect(
 )
 cursor = mydb.cursor()
 
-
 from fastapi import FastAPI, Request, Form
 app = FastAPI()
 
@@ -74,11 +73,6 @@ async def member(request:Request):
     else:
         return RedirectResponse("/")
 
-@app.get("/signout")
-async def signout(request:Request):
-    request.session.clear()
-    return RedirectResponse("/")
-
 @app.post("/createMessage")
 async def createMessage(request:Request, message:str=Form()):
     member_id = request.session.get("member_id", None)
@@ -96,5 +90,9 @@ async def deleteMessage(request:Request, message_id:str=Form()):
         mydb.commit()
         return RedirectResponse("/member", status_code=303)
     else:
-        request.session.clear()
-        return RedirectResponse("/", status_code=303)
+        return RedirectResponse("/signout", status_code=303)
+
+@app.get("/signout")
+async def signout(request:Request):
+    request.session.clear()
+    return RedirectResponse("/")
