@@ -31,12 +31,12 @@ async def home(request:Request):
 
 @app.post("/signup")
 async def signup(request:Request, name:str=Form(), username:str=Form(), password:str=Form()):
-    cursor.execute(f"SELECT * FROM member WHERE username='{username}'")
+    cursor.execute("SELECT * FROM member WHERE username=%s", (username,))
     row = cursor.fetchone()
     if row != None:
         return RedirectResponse("/error?message=使用者名稱重複", status_code=303)
     else:
-        cursor.execute(f"INSERT INTO member(name, username, password) VALUES('{name}', '{username}', '{password}')")
+        cursor.execute("INSERT INTO member(name, username, password) VALUES(%s, %s, %s)", (name, username, password))
         mydb.commit()
         return RedirectResponse("/", status_code=303)
 
@@ -48,7 +48,7 @@ async def error(request:Request, message:str):
 
 @app.post("/signin")
 async def signin(request:Request, username:str=Form(), password:str=Form()):
-    cursor.execute(f"SELECT * FROM member WHERE username='{username}' AND password='{password}'")
+    cursor.execute("SELECT * FROM member WHERE username=%s AND password=%s", (username, password))
     row = cursor.fetchone()
     if row != None:
         request.session["SIGNED-IN"] = "TRUE"
@@ -76,17 +76,17 @@ async def member(request:Request):
 @app.post("/createMessage")
 async def createMessage(request:Request, message:str=Form()):
     member_id = request.session.get("member_id", None)
-    cursor.execute(f"INSERT INTO message(member_id, content) VALUES({member_id}, '{message}')")
+    cursor.execute("INSERT INTO message(member_id, content) VALUES(%s, %s)", (member_id, message))
     mydb.commit()
     return RedirectResponse("/member", status_code=303)
 
 @app.post("/deleteMessage")
 async def deleteMessage(request:Request, message_id:str=Form()):
     member_id = request.session.get("member_id", None)
-    cursor.execute(f"SELECT * FROM message WHERE id={message_id} AND member_id={member_id}")
+    cursor.execute("SELECT * FROM message WHERE id=%s AND member_id=%s", (message_id, member_id))
     row = cursor.fetchone()
     if row:
-        cursor.execute(f"DELETE FROM message WHERE id={message_id}")
+        cursor.execute("DELETE FROM message WHERE id=%s", (message_id,))
         mydb.commit()
         return RedirectResponse("/member", status_code=303)
     else:
