@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet"
+        href="{{ url_for('static_files', path='/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">歡迎光臨，請註冊登入系統</div>
+        <div class="content">
+            <h2>註冊帳號</h2>
+            <form class="signup" action="/signup" method="post">
+                <div class="row">
+                    <label for="">姓名</label>
+                    <input type="text" name="name" class="name">
+                </div>
+                <div class="row">
+                    <label for="">帳號</label>
+                    <input type="text" name="username" class="username">
+                </div>
+                <div class="row">
+                    <label for="">密碼</label>
+                    <input type="password" name="password" class="password">
+                </div>
+                <div class="row">
+                    <button>註冊</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h2>登入系統</h2>
+            <form class="signin" action="/signin" method="post">
+                <div class="row">
+                    <label for="">帳號</label>
+                    <input type="text" name="username" class="username">
+                </div>
+                <div class="row">
+                    <label for="">密碼</label>
+                    <input type="password" name="password" class="password">
+                </div>
+                <div class="row">
+                    <button>登入</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let signupBtn = document.querySelector(".signup button");
+        signupBtn.addEventListener("click", () => {
+            let user = document.querySelector(".signup .name");
+            let username = document.querySelector(".signup .username");
+            let password = document.querySelector(".signup .password");
+            if (user.value == "" || username.value == "" || password.value == "") {
+                alert("請輸入所有欄位");
+                signupBtn.setAttribute("type", "button");
+            } else {
+                signupBtn.setAttribute("type", "submit");
+            }
+        });
+
+        let signinBtn = document.querySelector(".signin button");
+        signinBtn.addEventListener("click", () => {
+            let username = document.querySelector(".signin .username");
+            let password = document.querySelector(".signin .password");
+            if (username.value == "" || password.value == "") {
+                alert("請輸入所有欄位");
+                signinBtn.setAttribute("type", "button");
+            } else {
+                signinBtn.setAttribute("type", "submit");
+            }
+        });
+    </script>
+</body>
+
+</html>
