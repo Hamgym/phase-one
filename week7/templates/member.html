@@ -123,11 +123,10 @@
             let res = await fetch(request);
             let result = await res.json();
             let status = document.querySelector("#status");
-            try {
-                result["ok"];
+            if (result["ok"]) {
                 status.innerText = "更新成功";
                 document.querySelector("#welcome").innerText = `${patchField.value}，歡迎登入系統`;
-            } catch (error) {
+            } else {
                 status.innerText = "更新失敗";
             }
         });

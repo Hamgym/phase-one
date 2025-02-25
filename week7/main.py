@@ -100,10 +100,13 @@ async def signout(request:Request):
 
 
 @app.get("/api/member")
-async def get_member(username: str):
+async def get_member(request:Request, username:str):
     result = {"data": None}
-    cursor.execute("SELECT id, name, username FROM member WHERE username=%s", (username,))
-    row = cursor.fetchone()
+    row = None
+    signed = request.session.get("SIGNED-IN", "FALSE")
+    if signed == "TRUE":
+        cursor.execute("SELECT id, name, username FROM member WHERE username=%s", (username,))
+        row = cursor.fetchone()
     if row:
         result["data"] = {
             "id": row[0],
@@ -114,12 +117,16 @@ async def get_member(username: str):
 
 @app.patch("/api/member")
 async def patch_member(request:Request, body=Body()):
-    member_id = request.session.get("member_id", None)
-    try:
-        cursor.execute("UPDATE member SET name=%s WHERE id=%s", (body["name"], member_id))
-        mydb.commit()
-    except:
-        return {"error": True}
+    signed = request.session.get("SIGNED-IN", "FALSE")
+    if signed == "TRUE":
+        try:
+            member_id = request.session.get("member_id", None)
+            cursor.execute("UPDATE member SET name=%s WHERE id=%s", (body["name"], member_id))
+            mydb.commit()
+        except:
+            return {"error": True}
+        else:
+            request.session["name"] = body["name"]
+            return {"ok": True}
     else:
-        request.session["name"] = body["name"]
-        return {"ok": True}
+        return {"error": True}
